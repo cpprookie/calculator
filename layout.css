@@ -1,0 +1,34 @@
+body {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+   width: 260px;
+  height: 400px;
+  list-style: none;
+}
+
+.key {
+  display: flex;
+  height: 50px;
+  width: 50px;
+  padding: 5px;
+  margin-top: 10px;
+  text-align: center;
+  color: white;
+  background-color: tomato;
+  font-weight: bold;
+}
+
+.output {
+  display: flex;
+  height: 50px;
+  width: 150px;
+}
