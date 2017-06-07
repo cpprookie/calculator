@@ -6,61 +6,36 @@
     <link rel="stylesheet" href="layout.css">
   </head>
   <body>
-    <ul class="container">
-      <li class="key">
-        <span>AC</span>
-      </li>
-      <li class="output">
-        <input type="text" value=0>
-      </li>
-      <li class="key">
-        <span>9</span>
-      </li>
-      <li class="key">
-        <span>8</span>
-      </li>
-      <li class="key">
-        <span>7</span>
-      </li>
-      <li class="key">
-        <span>+</span>
-      </li>
-      <li class="key">
-        <span>6</span>
-      </li>
-      <li class="key">
-        <span>5</span>
-      </li>
-      <li class="key">
-        <span>4</span>
-      </li>
-      <li class="key">
-        <span>-</span>
-      </li>
-      <li class="key">
-        <span>3</span>
-      </li>
-      <li class="key">
-        <span>2</span>
-      </li>
-      <li class="key">
-        <span>1</span>
-      </li>
-      <li class="key">
-        <span>*</span>
-      </li>
-      <li class="key">
-        <span>0</span>
-      </li>
-      <li class="key">
-        <span>.</span>
-      </li>
-      <li class="key">
-        <span>del</span>
-      </li>
-      <li class="key">
-        <span>/</span>
-      </li>
-    </ul>
+    <div class="container">
+      <ul class="row">
+        <li class="key operator">AC</li>
+        <li class="output" id="output">0</li>
+      </ul>
+      <ul class="row">
+        <li class="key">7</li>
+        <li class="key">8</li>
+        <li class="key">9</li>
+        <li class="key operator">+</li>
+      </ul>
+      <ul class="row">
+        <li class="key">4</li>
+        <li class="key">5</li>
+        <li class="key">6</li>
+        <li class="key operator">-</li>
+      </ul>
+      <ul class="row">
+        <li class="key">3</li>
+        <li class="key">2</li>
+        <li class="key">1</li>
+        <li class="key operator">*</li>
+      </ul>
+      <ul class="row">
+        <li class="key">0</li>
+        <li class="key">.</li>
+        <li class="key operator">=</li>
+        <li class="key operator">/</li>
+      </ul>
+    </div>
+    <script src="main.js"></script>
   </body>
 </html>

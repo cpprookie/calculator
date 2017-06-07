@@ -7,18 +7,23 @@ body {
 
 .container {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-   width: 260px;
-  height: 400px;
+   width: 400px;
+  height: 500px;
+}
+
+.row {
+  display: flex;
+  flex: 0 0 100%;
+  margin-top: 10px 0 0 0;
+  justify-content: space-around;
   list-style: none;
 }
 
 .key {
-  display: flex;
-  height: 50px;
-  width: 50px;
+  flex: 0 1 50px;
   padding: 5px;
   margin-top: 10px;
   text-align: center;
@@ -27,8 +32,14 @@ body {
   font-weight: bold;
 }
 
+.operator {
+  background-color: orange;
+}
+
 .output {
-  display: flex;
-  height: 50px;
-  width: 150px;
+  flex: 3;
+  text-align: right;
+  background-color: blueviolet;
+  color: white;
+  font-weight: bold;
 }
