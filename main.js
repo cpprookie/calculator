@@ -6,61 +6,82 @@ window.onload = function () {
   screen = {
     _value: '0',
 
-    get watch () {
+    get display () {
       return this._value
     },
 
-    set watch (val) {
-      console.log('>>>>>>>')
+    set display (val) {
       document.querySelector('.output').textContent = val
       this._value = val
     }
   }
-  screen.watch = '0'
+  screen.display = '0'
+
+  realValue = '0'
   inputArr = []
   document.querySelector('.container').addEventListener('click', action)
 }
 
 
-// handle input
+/* input handler */
 function action (event) {
-  let target = event.target
-  let input = target.textContent
+  let target = event.target,
+       input = target.textContent,
+        flag = ['+','-','*','/'].includes(inputArr[inputArr.length-1])
   // type number
   if (target.className === 'key') {
 
-    if (['+','-','*','/'].includes(inputArr[inputArr.length-1]) || (screen.watch === '0' &&  input !== '.')) {
-      screen.watch = input
-    } else {
-      screen.watch += input
+    // First Number key after typing operator key
+    if (flag && realValue === '') {
+      screen.display = input
     }
-  } 
+
+    else if (screen.display === '0' &&  input !== '.') {
+      screen.display = input
+    } 
+    
+    else if (input === '.' && screen.display.indexOf('.') !== -1) {}
+  
+    else {
+      screen.display += input
+    }
+
+    realValue = screen.display
+  }
   
   // clear input and screen
   else if (input === 'AC'){
-    screen.watch = '0'
+    screen.display = '0'
+    realValue = ''
     inputArr = []
   } 
   
-  /*  */
+  /* when inputArr become  [Num,Operator,Num]
+   *  "=" become a  function exec() trigger  
+   *  else it take display as calculate result
+   */
   else if (input === '=') {
-    inputArr.push(parseFloat(screen.watch))
-    if (inputArr.length < 3) {
+    inputArr.push(parseFloat(screen.display))
+
+    if (realValue === '' || inputArr.length !== 3) {
       inputArr = []
     } else {
-      exec(inputArr)
-    } 
-  } 
+      exec(inputArR)
+    }
+  }
   
   else {
-    inputArr.push(parseFloat(screen.watch)) 
+
     if (inputArr.length === 3) {
       exec(inputArr)
-    } 
+    }
+
     // type operator twice
-    else if (['+', '-', '*', '/'].includes(inputArr[inputArr.length-1])) {
+    else if (flag) {
       inputArr[inputArr.length-1] = input
     } else {
+      inputArr.push(parseFloat(screen.display)) 
+      realValue = ''
       inputArr.push(input)
     }
   }
@@ -69,22 +90,24 @@ function action (event) {
 
 /* core  calculation */
 
-function exec (inputArr) {
-  let operator = inputArr[1]
-  console.log(inputArr)
+function exec (inputList) {
+  let operator = inputList[1]
+
   switch (operator) {
     case '+': 
-      screen.watch =  (inputArr[0] + inputArr[2]).toString()
+      screen.display =  (inputList[0] + inputList[2]).toString()
       break
     case '-': 
-      screen.watch =  (inputArr[0] - inputArr[2]).toString()
+      screen.display =  (inputList[0] - inputList[2]).toString()
       break
     case '*':
-      screen.watch =  (inputArr[0] * inputArr[2]).toString()
+      screen.display =  (inputList[0] * inputList[2]).toString()
       break
     default :
-      screen.watch =  (inputArr[0] / inputArr[2]).toString()
+      screen.display =  (inputList[0] / inputList[2]).toString()
+      break
   }
+  realValue = screen.display
   inputArr = []
-  return screen.watch
+  return screen.display
 }
