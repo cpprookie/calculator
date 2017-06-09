@@ -66,7 +66,7 @@ function action (event) {
     if (realValue === '' || inputArr.length !== 3) {
       inputArr = []
     } else {
-      exec(inputArR)
+      exec(inputArr)
     }
   }
   
