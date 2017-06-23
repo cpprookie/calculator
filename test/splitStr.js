@@ -1,4 +1,4 @@
-function exec (str) {
+function splitStr (str) {
   //sterp1 将字符串分割为实际数据与操作符的集合
   debugger
   var operators = ['+', '-', '*', '/'],
@@ -27,18 +27,18 @@ function exec (str) {
   return splitedArr
 }
 
-// exec('1+2')
+// splitStr('1+2')
 
-// exec('1+2-3')
+// splitStr('1+2-3')
 
-// exec('1/4*6+2-3*3')
+// splitStr('1/4*6+2-3*3')
 
-// exec('10+2')
+// splitStr('10+2')
 
-// exec('10+20')
+// splitStr('10+20')
 
-// exec('0.1+0.2')
+// splitStr('0.1+0.2')
 
-// exec('1+2*3-10/234+0.1-0.3*32')
+// splitStr('1+2*3-10/234+0.1-0.3*32')
 
-// exec('-1+2')
+// splitStr('-1+2')
