@@ -12,9 +12,6 @@ window.onload = function () {
     return false
   }          
 
-  // container.addEventListener('click', function () {
-  //   action(event,calculator)
-  // })
 
   var calculator = {
     _value: '',
@@ -72,8 +69,9 @@ window.onload = function () {
  
     //  在按下等号键的时候判断输入并触发整个计算流程。
     case "equal-key": 
-      if (exec(self.value)) {
-        self.value = exec(self.value).toString()
+      var computeResult = exec(self.value)
+      if (computeResult) {
+        self.value = computeResult.toString()
       } else {
         ac.click()  //此次计算终结，清空状态值
         document.querySelector('.display').textContent = "0 can't set as divisor"
@@ -86,13 +84,60 @@ self.lastKey = key
 }
  
 /* core  calculation */
-
 function exec (str) {
-  var splitArr = splitStr(str),
+  // 之前想要将括号嵌套纳入处理范围时想到的代码，试了之后发现并不是想象中那样简单
+  // if (str.includes('(')) {
+  //   var leftBracketIndexs = [],
+  //      rigthBracketIndexs = []
+  //   // 记录左右括号的索引值
+  //   for (var i = 0, n = str.length; i < n; i++) {
+  //     if (str[i] === '(') {
+  //       leftBracketIndexs.push(i)
+  //     } else if (str[i] === ')') {
+  //       rigthBracketIndexs.push(i+1)
+  //     }
+  //   }
+
+  //   // 输入不合法，括号未成对出现
+  //   if(leftBracketIndexs.length !== rigthBracketIndexs.length) {
+  //     return false
+  //   }
+
+  //   for (var i = 0, length = leftBracketIndexs.length; i < length; i++) {
+  //     var temp = str.slice(leftBracketIndexs[i], rigthBracketIndexs[i])
+  //         // tempResult =  splitStr(temp)
+  //         console.log(temp)
+  //   }
+  // }
+
+  var executedStr = bracketHandler(str)
+  
+  if(executedStr.includes('+') || executedStr.includes('-') || executedStr.includes('*') || executedStr.includes('/')) {
+    var splitArr = splitStr(executedStr),
         result = findOperator(splitArr)
-  return  result ? result : false
+    return  result ? result : false
+  }
+  // 整个表达式都在括号内
+  return executedStr
 }
 
+
+// 计算括号内的表达式 
+// 学习了递归的用法，完成的函数要return下一次的调用，最后的返回值才能逐级返回。
+function bracketHandler (inpustr) {
+  var regExp = /\(([^)]+)\)/,
+      output = inpustr
+  if(regExp.test(inpustr)) {
+    var temp = regExp.exec(inpustr)[1],  // 取出括号内的字符串
+        item = '(' + temp + ')'
+    var splitArr = splitStr(temp),
+          result = findOperator(splitArr)
+    output = inpustr.replace(item, result.toString())
+    return bracketHandler(output)
+  } else {
+    return output
+  }
+}
 
 //sterp1 将字符串分割为实际数据与操作符的集合
 function splitStr (str) {
@@ -101,15 +146,11 @@ function splitStr (str) {
             end = 0,  // 数据的终点位置 
      splitedArr = []  // 映射的目标数组
 
-  if (operators.includes(str[0])) {
-    splitedArr.push(str[0])
-    str = str.slice(1)
-  }
-
   for(var i = 0, n = str.length; i < n; i++) {
     if (operators.includes(str[i])) {
       start = end === 0 ? 0  : end + 1 
       end = i
+      if (i === 0)  continue   // 第一个字符为操作符时，结束当前循环
       splitedArr.push(parseFloat(str.slice(start, end)))
       splitedArr.push(str[i])
     } 
