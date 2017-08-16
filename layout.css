@@ -19,16 +19,24 @@ body {
 
 .container {
   display: flex;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-   width: 400px;
+  width: 400px;
   height: 400px;
 }
 
 .row {
   display: flex;
-  flex: 1;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  flex-grow: 1;
+  -webkit-flex-grow: 1;
+  -moz-flex-grow: 1;
   width: 360px;
   margin-left: 20px;
   margin-right: 20px; 
